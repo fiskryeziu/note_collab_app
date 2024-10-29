@@ -1,5 +1,5 @@
 "use client";
-import { CustomPageHeader } from "@/app/[pageId]/_components/header";
+import { Topbar } from "@/components/top-bar";
 import clsx from "clsx";
 import { Image as Img, MessageSquareText, Smile } from "lucide-react";
 import React, { useState } from "react";
@@ -23,7 +23,7 @@ export default function CustomPagesInput() {
 
   return (
     <div className="p-4">
-      <CustomPageHeader pageName={pageName} />
+      <Topbar pageName={pageName} />
       <main className="max-w-full w-3/4 mx-auto">
         <div
           className={clsx(

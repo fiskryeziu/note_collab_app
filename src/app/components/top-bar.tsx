@@ -11,7 +11,11 @@ import {
   Star,
 } from "lucide-react";
 import clsx from "clsx";
+import { usePathname } from "next/navigation";
+
 export const CustomPageHeader = ({ pageName }: { pageName: string }) => {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const context = use<TContext | null>(AppContext);
   if (!context) {
     throw new Error("useContext must be used within an AppProvider");
@@ -19,7 +23,7 @@ export const CustomPageHeader = ({ pageName }: { pageName: string }) => {
   const { show, setShow, toggle, toggleMenu } = context;
 
   return (
-    <main className="flex">
+    <main className="flex items-center gap-2">
       {toggleMenu &&
         (toggleMenu && show ? (
           <ChevronsRight
@@ -36,11 +40,17 @@ export const CustomPageHeader = ({ pageName }: { pageName: string }) => {
           : pageName}
       </p>
       <div className="ml-auto flex gap-4">
-        <p className="text-white/80 text-sm">Share</p>
-        <MessageSquareText size={20} className="text-white/80" />
-        <Clock9 size={20} className="text-white/80" />
-        <Star size={20} className="text-white/80" />
-        <Ellipsis size={20} className="text-white/80" />
+        {isHomePage ? (
+          <Ellipsis size={20} className="text-white/80" />
+        ) : (
+          <>
+            <p className="text-white/80 text-sm">Share</p>
+            <MessageSquareText size={20} className="text-white/80" />
+            <Clock9 size={20} className="text-white/80" />
+            <Star size={20} className="text-white/80" />
+            <Ellipsis size={20} className="text-white/80" />
+          </>
+        )}
       </div>
     </main>
   );
