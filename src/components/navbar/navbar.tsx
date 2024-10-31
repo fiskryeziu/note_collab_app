@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useRef } from "react";
+import React, { use } from "react";
 import {
   ArrowUpRight,
   Bot,
@@ -36,25 +36,26 @@ export const Navbar = () => {
   return (
     <nav
       className={clsx(
-        "grow-0 shrink-0 pointer-events-none relative z-50 w-60",
-        toggleMenu && "w-0",
+        "grow-0 shrink-0 pointer-events-none relative z-50 duration-200 transition-all",
+        toggleMenu ? "w-0" : "w-60",
       )}
     >
       <div className="absolute top-0 left-0 bottom-0 flex flex-col">
         <div
           className={clsx(
-            "flex flex-col h-full relative pointer-events-auto visible w-60 opacity-100",
+            "flex flex-col h-full relative pointer-events-auto w-60 ",
           )}
           onMouseLeave={() => setShow(false)}
         >
           <aside
             className={clsx(
-              "bg-sidebar w-60 flex flex-col ease duration-200 transition-all h-full max-h-full",
-              toggleMenu && "max-h-[calc(-118px+100vh)] translate-y-[60px]",
+              "bg-sidebar w-60 flex flex-col ease duration-200 transition-all",
+              toggleMenu
+                ? "max-h-[calc(-118px+100vh)]  translate-y-[60px]"
+                : "h-full max-h-full translate-y-0",
               toggleMenu && !show
                 ? "translate-x-[-220px] opacity-0"
-                : "visible opacity-100 ",
-              toggleMenu && "translate-y-0",
+                : "translate-x-0 opacity-100 ",
             )}
             onMouseEnter={() => setShow(true)}
           >
