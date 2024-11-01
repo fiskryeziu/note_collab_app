@@ -23,7 +23,7 @@ export const Topbar = ({ pageName }: { pageName: string }) => {
   const { show, setShow, toggle, toggleMenu } = context;
 
   return (
-    <main className="flex items-center gap-2">
+    <main className="flex items-center gap-2 p-4">
       {toggleMenu &&
         (toggleMenu && show ? (
           <ChevronsRight
@@ -44,7 +44,7 @@ export const Topbar = ({ pageName }: { pageName: string }) => {
           <Ellipsis size={20} className="text-white/80" />
         ) : (
           <>
-            <p className="text-white/80 text-sm">Share</p>
+            <p className="text-sm text-white/80">Share</p>
             <MessageSquareText size={20} className="text-white/80" />
             <Clock9 size={20} className="text-white/80" />
             <Star size={20} className="text-white/80" />

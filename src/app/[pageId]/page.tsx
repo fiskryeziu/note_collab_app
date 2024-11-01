@@ -8,13 +8,13 @@ export default async function Page({
   const { pageId } = await params;
   console.log(pageId);
   return (
-    <main className="flex grow w-full flex-col">
+    <>
       {/*
        * InputPages will have props which based on the id will
        * get the data
        */}
 
       <CustomPagesInput />
-    </main>
+    </>
   );
 }

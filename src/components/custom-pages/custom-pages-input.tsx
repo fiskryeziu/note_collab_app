@@ -3,6 +3,8 @@ import { Topbar } from "@/components/top-bar";
 import clsx from "clsx";
 import { Image as Img, MessageSquareText, Smile } from "lucide-react";
 import React, { useState } from "react";
+import ScrollWrapper from "@/components/scroll-wrapper";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // const text = { type: "text", data: { content: "some dummy text" } };
 export default function CustomPagesInput() {
@@ -22,32 +24,37 @@ export default function CustomPagesInput() {
   // };
 
   return (
-    <div className="p-4">
+    <div className="flex grow flex-col overflow-hidden">
       <Topbar pageName={pageName} />
-      <main className="max-w-full w-3/4 mx-auto">
-        <div
-          className={clsx(
-            "pt-20 flex items-center gap-5 transition-opacity duration-200",
-            toggleControl ? "opacity-100" : "opacity-0",
-          )}
-          onMouseEnter={() => setToggleControl(true)}
-          onMouseLeave={() => setToggleControl(false)}
-        >
-          <div className="flex gap-2 items-center hover:bg-white/10 p-1 rounded-[5px]">
-            <Smile size={16} className="text-white/80" />
-            <p className="text-sm text-white/80">Add icon</p>
-          </div>
-          <div className="flex gap-2 items-center hover:bg-white/10 p-1 rounded-[5px]">
-            <Img size={16} className="text-white/80" />
-            <p className="text-sm text-white/80">Add cover</p>
-          </div>
-          <div className="flex gap-2 items-center hover:bg-white/10 p-1 rounded-[5px]">
-            <MessageSquareText size={16} className="text-white/80" />
-            <p className="text-sm text-white/80">Add a comment</p>
-          </div>
-        </div>
-        <div className="min-h-44 flex h-full"></div>
-      </main>
+
+      <ScrollWrapper>
+        <ScrollArea className="h-full">
+          <main className="flex w-3/4 mx-auto mb-[2000px]">
+            <div
+              className={clsx(
+                "pt-20 flex items-center gap-5 transition-opacity duration-200",
+                toggleControl ? "opacity-100" : "opacity-0",
+              )}
+              onMouseEnter={() => setToggleControl(true)}
+              onMouseLeave={() => setToggleControl(false)}
+            >
+              <div className="flex gap-2 items-center hover:bg-white/10 p-1 rounded-[5px]">
+                <Smile size={16} className="text-white/80" />
+                <p className="text-sm text-white/80">Add icon</p>
+              </div>
+              <div className="flex gap-2 items-center hover:bg-white/10 p-1 rounded-[5px]">
+                <Img size={16} className="text-white/80" />
+                <p className="text-sm text-white/80">Add cover</p>
+              </div>
+              <div className="flex gap-2 items-center hover:bg-white/10 p-1 rounded-[5px]">
+                <MessageSquareText size={16} className="text-white/80" />
+                <p className="text-sm text-white/80">Add a comment</p>
+              </div>
+            </div>
+            <div className="min-h-44 flex h-full"></div>
+          </main>
+        </ScrollArea>
+      </ScrollWrapper>
     </div>
   );
 }
