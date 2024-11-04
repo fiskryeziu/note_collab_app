@@ -15,3 +15,21 @@ export type TNavlinks = {
   slug: string;
   title: string;
 };
+
+export type TEmoji<T> = {
+  alises: T[];
+  id: T;
+  keywords: T[];
+  name: T;
+  native: T;
+  shortcodes: T;
+  skin: number;
+  unified: T;
+};
+
+export type EmojiCompProps = {
+  toggle: () => void;
+  show: boolean;
+  value: string;
+  add: (value: TEmoji<string>) => void;
+};

@@ -5,23 +5,27 @@ import { Image as Img, MessageSquareText, Smile } from "lucide-react";
 import React, { useState } from "react";
 import ScrollWrapper from "@/components/scroll-wrapper";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Editor from "../editor";
+import EmojiPicker from "../emoji-picker";
+import { TEmoji } from "../../../types";
 
-// const text = { type: "text", data: { content: "some dummy text" } };
 export default function CustomPagesInput() {
-  // const headingRef = useRef<HTMLHeadingElement>(null);
-  // const [show, setShow] = useState(true);
   const [pageName] = useState<string>("New page");
   const [toggleControl, setToggleControl] = useState(false);
-  // const [blocks, setBlocks] = useState<{ type: string; data: any }[]>([text]);
 
-  // const handleInput = () => {
-  //   if (headingRef.current) {
-  //     const isEmpty = headingRef.current.textContent?.trim() === "";
-  //     const text = headingRef.current.textContent?.trim() ?? "";
-  //     setShow(isEmpty);
-  //     setPageName(text.length > 0 ? text : "New page");
-  //   }
-  // };
+  //emoji
+  const [isOpen, setIsOpen] = useState(false);
+  const [showPicker, setShowPicker] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
+  const togglePicker = () => {
+    setShowPicker(!showPicker);
+  };
+
+  const addEmoji = (emoji: TEmoji<string>) => {
+    setInputValue(inputValue + emoji.native);
+    setShowPicker(false);
+  };
 
   return (
     <div className="flex grow flex-col overflow-hidden">
@@ -29,29 +33,49 @@ export default function CustomPagesInput() {
 
       <ScrollWrapper>
         <ScrollArea className="h-full">
-          <main className="flex w-3/4 mx-auto mb-[2000px]">
+          <main className="mx-auto flex w-3/4 flex-col">
+            {inputValue && (
+              <div className="mt-20">
+                <p className="text-7xl">{inputValue}</p>
+              </div>
+            )}
             <div
               className={clsx(
-                "pt-20 flex items-center gap-5 transition-opacity duration-200",
+                "flex items-center gap-5 pt-20 transition-opacity duration-200",
                 toggleControl ? "opacity-100" : "opacity-0",
+                inputValue && "pt-5",
               )}
               onMouseEnter={() => setToggleControl(true)}
               onMouseLeave={() => setToggleControl(false)}
             >
-              <div className="flex gap-2 items-center hover:bg-white/10 p-1 rounded-[5px]">
-                <Smile size={16} className="text-white/80" />
-                <p className="text-sm text-white/80">Add icon</p>
-              </div>
-              <div className="flex gap-2 items-center hover:bg-white/10 p-1 rounded-[5px]">
+              {!inputValue && (
+                <div
+                  className="flex cursor-pointer items-center gap-2 rounded-[5px] p-1 hover:bg-white/10"
+                  role="button"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <EmojiPicker
+                    toggle={togglePicker}
+                    show={showPicker}
+                    add={addEmoji}
+                    value={inputValue}
+                  />
+                  <Smile size={16} className="text-white/80" />
+                  <p className="text-sm text-white/80">Add icon</p>
+                </div>
+              )}
+              <div className="flex items-center gap-2 rounded-[5px] p-1 hover:bg-white/10">
                 <Img size={16} className="text-white/80" />
                 <p className="text-sm text-white/80">Add cover</p>
               </div>
-              <div className="flex gap-2 items-center hover:bg-white/10 p-1 rounded-[5px]">
+              <div className="flex items-center gap-2 rounded-[5px] p-1 hover:bg-white/10">
                 <MessageSquareText size={16} className="text-white/80" />
                 <p className="text-sm text-white/80">Add a comment</p>
               </div>
             </div>
-            <div className="min-h-44 flex h-full"></div>
+            <div>
+              <Editor />
+            </div>
           </main>
         </ScrollArea>
       </ScrollWrapper>
