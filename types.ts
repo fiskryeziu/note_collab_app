@@ -28,8 +28,14 @@ export type TEmoji<T> = {
 };
 
 export type EmojiCompProps = {
-  toggle: () => void;
+  toggle?: () => void;
   show: boolean;
-  value: string;
+  value?: string;
   add: (value: TEmoji<string>) => void;
+};
+
+export type TControl = {
+  title: string;
+  img: string;
+  comment: string;
 };
