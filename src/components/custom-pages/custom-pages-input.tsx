@@ -1,7 +1,7 @@
 "use client";
 import clsx from "clsx";
 import { Topbar } from "@/components/top-bar";
-import { Image as Img, MessageSquareText, Smile } from "lucide-react";
+import { Image as Img, Smile } from "lucide-react";
 import React, { useState } from "react";
 import ScrollWrapper from "@/components/scroll-wrapper";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -9,7 +9,12 @@ import Editor from "../editor";
 import EmojiPicker from "../emoji-picker";
 import { TControl, TEmoji } from "../../../types";
 import Image from "next/image";
+import { ChangeCover } from "../change-cover-dialog";
 
+// TODO: combine emojipicker with shadcn comp, add remove functionality
+// for cover img also on click of image add a tooltip for remove and add a new one
+// which will open a modal to select or remove the wanted img.
+// images will be local for now.
 const IMAGES = ["/1.webp", "/2.webp", "/3.webp"];
 export default function CustomPagesInput() {
   const [pageName] = useState<string>("New page");
@@ -52,9 +57,9 @@ export default function CustomPagesInput() {
 
       <ScrollWrapper>
         <ScrollArea className="h-full">
-          <div className="mx-auto flex w-full">
+          <div className="mx-auto flex w-full ">
             {controlData.img && (
-              <div className="mt-12 block h-20 w-full">
+              <div className="group relative mt-12 block h-20 w-full">
                 <Image
                   alt={controlData.title}
                   src={controlData.img}
@@ -62,6 +67,11 @@ export default function CustomPagesInput() {
                   height={800}
                   className="h-40 w-full object-cover"
                 />
+                <div className="absolute bottom-1/2 left-3/4 flex cursor-pointer items-center justify-center rounded-[3px] bg-sidebar p-1 text-xs text-white/40 opacity-0 group-hover:opacity-100">
+                  <div className="relative">
+                    <ChangeCover />
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -71,13 +81,14 @@ export default function CustomPagesInput() {
               !controlData.title && controlData.img && "mt-20",
             )}
           >
-            <div>
+            <div className="z-10">
               {controlData.title && (
                 <div
                   className="mt-10 w-fit cursor-pointer hover:bg-white/5"
                   onClick={togglePicker}
                 >
                   <p className="text-7xl">{controlData.title}</p>
+                  <EmojiPicker show={showPicker} add={addEmoji} />
                 </div>
               )}
             </div>
