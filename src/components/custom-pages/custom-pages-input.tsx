@@ -15,7 +15,7 @@ import { ChangeCover } from "../change-cover-dialog";
 // for cover img also on click of image add a tooltip for remove and add a new one
 // which will open a modal to select or remove the wanted img.
 // images will be local for now.
-const IMAGES = ["/1.webp", "/2.webp", "/3.webp"];
+export const IMAGES = ["/1.webp", "/2.webp", "/3.webp"];
 export default function CustomPagesInput() {
   const [pageName] = useState<string>("New page");
   const [toggleControl, setToggleControl] = useState(false);
@@ -69,7 +69,7 @@ export default function CustomPagesInput() {
                 />
                 <div className="absolute bottom-1/2 left-3/4 flex cursor-pointer items-center justify-center rounded-[3px] bg-sidebar p-1 text-xs text-white/40 opacity-0 group-hover:opacity-100">
                   <div className="relative">
-                    <ChangeCover />
+                    <ChangeCover setControlDataAction={setControlData} />
                   </div>
                 </div>
               </div>
