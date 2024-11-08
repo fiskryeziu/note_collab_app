@@ -1,10 +1,8 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -13,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { IMAGES } from "./custom-pages/custom-pages-input";
 import Image from "next/image";
 import { TControl } from "../../types";
+import { Button } from "./ui/button";
 
 type controlState = React.Dispatch<React.SetStateAction<TControl>>;
 export function ChangeCover({
@@ -44,10 +43,18 @@ export function ChangeCover({
         }}
       >
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
+          <DialogTitle className="flex items-center justify-between">
+            <div>Images</div>
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={() =>
+                setControlDataAction((prev) => ({ ...prev, img: "" }))
+              }
+            >
+              remove
+            </Button>
+          </DialogTitle>
         </DialogHeader>
         <div className="grid grid-cols-4 gap-2">
           {IMAGES.map((img, idx) => (
@@ -66,9 +73,6 @@ export function ChangeCover({
             </div>
           ))}
         </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
