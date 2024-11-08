@@ -144,3 +144,7 @@ td {
 .drag-expand-both:hover {
   background-color: #555;
 }
+
+.bn-editor {
+  background-color: transparent !important;
+}
