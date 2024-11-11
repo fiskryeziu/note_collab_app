@@ -38,15 +38,8 @@ export default async function Page({
 
   const pageContent = data.filter((x) => x.id === pageId).map((x) => x.data)[0];
 
-  // WARNING: carefull of the typing for the data you get.
-
-  // FIX:: typing of initialContent because it will be dynamic
-  //  it can hold table, heading, ordered list etc...
-
-  // NOTE: on drag & drop rearrange of the elems,
-  // the type will change in most cases and for that we'll use the PartialBlock type
-  <>
   return (
+    <>
       <CustomPagesInput initialContent={pageContent} />
     </>
   );
