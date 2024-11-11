@@ -10,13 +10,18 @@ import EmojiPicker from "../emoji-picker";
 import { TControl, TEmoji } from "../../../types";
 import Image from "next/image";
 import { ChangeCover } from "../change-cover-dialog";
+import { PartialBlock } from "@blocknote/core";
 
 // TODO: combine emojipicker with shadcn comp, add remove functionality
 // for cover img also on click of image add a tooltip for remove and add a new one
 // which will open a modal to select or remove the wanted img.
 // images will be local for now.
 export const IMAGES = ["/1.webp", "/2.webp", "/3.webp"];
-export default function CustomPagesInput() {
+export default function CustomPagesInput({
+  initialContent,
+}: {
+  initialContent?: any;
+}) {
   const [pageName] = useState<string>("New page");
   const [toggleControl, setToggleControl] = useState(false);
   const [controlData, setControlData] = useState<TControl>({
@@ -130,7 +135,7 @@ export default function CustomPagesInput() {
               )}
             </div>
             <div>
-              <Editor />
+              <Editor initialContent={initialContent} />
             </div>
           </main>
         </ScrollArea>
