@@ -1,4 +1,6 @@
-import { Pool } from "pg";
+const { Pool } = require("pg");
+
+require("dotenv").config({ path: ".env.local" }); // Explicitly load .env.local
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -8,4 +10,4 @@ const pool = new Pool({
   port: parseInt(process.env.DB_PORT || "5432", 10),
 });
 
-export default pool;
+module.exports = pool;
