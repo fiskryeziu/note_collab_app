@@ -1,6 +1,7 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
 import { TContext, TNavlinks } from "../../types";
+import { getPages } from "@/lib/data";
 
 export const AppContext = createContext<TContext | null>(null);
 
@@ -22,11 +23,8 @@ export const ContextProvider = ({
 
   async function fetchPages() {
     setLoading(true);
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
-    const response = await fetch("http://localhost:3001/pages", {
-      cache: "no-store",
-    });
-    const data = (await response.json()) as TNavlinks[];
+    // NOTE: for now will use this method
+    const data = await getPages();
     setPages(data);
     setLoading(false);
   }

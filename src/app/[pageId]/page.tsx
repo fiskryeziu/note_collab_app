@@ -1,46 +1,17 @@
 import CustomPagesInput from "@/components/custom-pages/custom-pages-input";
-import { PartialBlock } from "@blocknote/core";
+import { getContentByPagesId } from "@/lib/data";
 
-/*
- NOTE:: the type  how's gonna look the data. 
- right know using type TResContentPage
-  type PartialBlock = {
-  id?: string;
-  type?: string;
-  props?: Partial<Record<string, any>>; // exact type depends on "type"
-  content?: string | InlineContent[] | TableContent;
-  children?: PartialBlock[];
-}; 
-*/
-
-type ContentItem = {
-  type: string;
-  content: string;
-};
-
-type TResContentPage = {
-  id: string;
-  title: string;
-  cover: string;
-  data: ContentItem[];
-};
 export default async function Page({
   params,
 }: {
   params: Promise<{ pageId: string }>;
 }) {
   const pageId = (await params).pageId;
-
-  const response = await fetch("http://localhost:3001/page-content", {
-    cache: "no-store",
-  });
-  const data = (await response.json()) as TResContentPage[];
-
-  const pageContent = data.filter((x) => x.id === pageId).map((x) => x.data)[0];
+  const content = await getContentByPagesId(pageId);
 
   return (
     <>
-      <CustomPagesInput initialContent={pageContent} />
+      <CustomPagesInput initialContent={content} />
     </>
   );
 }

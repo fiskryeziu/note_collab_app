@@ -11,7 +11,7 @@ export type TContext = {
 };
 
 export type TNavlinks = {
-  id: number;
+  id: string;
   slug: string;
   title: string;
 };

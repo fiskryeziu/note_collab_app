@@ -18,7 +18,7 @@ export default function NavbarLinks() {
       {loading && <>loading...</>}
       {pages.map((page) => (
         <Link
-          href={page.slug}
+          href={page.id}
           key={page.id}
           className="flex gap-2 items-center text-white/40 p-2 hover:bg-white/5 duration-200 rounded-[10px]"
         >
