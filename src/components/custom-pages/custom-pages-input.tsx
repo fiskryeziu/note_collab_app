@@ -20,7 +20,7 @@ export const IMAGES = ["/1.webp", "/2.webp", "/3.webp"];
 export default function CustomPagesInput({
   initialContent,
 }: {
-  initialContent?: any;
+  initialContent: PartialBlock[];
 }) {
   const [pageName] = useState<string>("New page");
   const [toggleControl, setToggleControl] = useState(false);
