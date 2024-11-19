@@ -5,7 +5,7 @@ export type TContext = {
   setToggleMenu: (value: boolean) => void;
   toggle: () => void;
   pages: TNavlinks[];
-  setPages: (value: TNavlinks[]) => void;
+  setPages: React.Dispatch<React.SetStateAction<TNavlinks[]>>;
   loading: boolean;
   setLoading?: (value: boolean) => void;
 };

@@ -20,7 +20,7 @@ export default function NavbarLinks() {
         <Link
           href={page.id}
           key={page.id}
-          className="flex gap-2 items-center text-white/40 p-2 hover:bg-white/5 duration-200 rounded-[10px]"
+          className="flex items-center gap-2 rounded-[10px] p-2 text-white/40 duration-200 hover:bg-white/5"
         >
           <Settings size={16} />
           <p className="text-sm">{page.title}</p>

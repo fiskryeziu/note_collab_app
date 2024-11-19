@@ -36,20 +36,20 @@ export const Navbar = () => {
   return (
     <nav
       className={clsx(
-        "grow-0 shrink-0 pointer-events-none relative z-50 duration-200 transition-all",
+        "pointer-events-none relative z-50 shrink-0 grow-0 transition-all duration-200",
         toggleMenu ? "w-0" : "w-60",
       )}
     >
-      <div className="absolute top-0 left-0 bottom-0 flex flex-col">
+      <div className="absolute bottom-0 left-0 top-0 flex flex-col">
         <div
           className={clsx(
-            "flex flex-col h-full relative pointer-events-auto w-60 ",
+            "pointer-events-auto relative flex h-full w-60 flex-col ",
           )}
           onMouseLeave={() => setShow(false)}
         >
           <aside
             className={clsx(
-              "bg-sidebar w-60 flex flex-col ease duration-200 transition-all",
+              "ease flex w-60 flex-col bg-sidebar transition-all duration-200",
               toggleMenu
                 ? "max-h-[calc(-118px+100vh)]  translate-y-[60px]"
                 : "h-full max-h-full translate-y-0",
@@ -59,20 +59,20 @@ export const Navbar = () => {
             )}
             onMouseEnter={() => setShow(true)}
           >
-            <header className="flex flex-col m-2">
+            <header className="m-2 flex flex-col">
               <div className="flex items-center p-2">
-                <div className="flex text-sm gap-2 items-center">
-                  <p className="w-5 h-5 text-center bg-white/10 rounded-sm text-white/40">
+                <div className="flex items-center gap-2 text-sm">
+                  <p className="h-5 w-5 rounded-sm bg-white/10 text-center text-white/40">
                     F
                   </p>
                   <p>{`Fiss's`} Notion</p>
 
                   <ChevronDown size={14} className="text-white/40" />
                 </div>
-                <div className="ml-auto flex gap-2 items-center">
+                <div className="ml-auto flex items-center gap-2">
                   <ChevronsLeft
                     className={clsx(
-                      "text-white/40 cursor-pointer",
+                      "cursor-pointer text-white/40",
                       show ? "visible" : "invisible",
                       toggleMenu && "invisible",
                     )}
@@ -82,58 +82,58 @@ export const Navbar = () => {
                 </div>
               </div>
               <div>
-                <div className="flex gap-2 items-center text-white/60 p-2 hover:bg-white/5 duration-200 rounded-[10px]">
+                <div className="flex items-center gap-2 rounded-[10px] p-2 text-white/60 duration-200 hover:bg-white/5">
                   <Search size={16} />
                   <p className="text-sm">Search</p>
                 </div>
-                <div className="flex gap-2 items-center text-white/60 p-2 hover:bg-white/5 duration-200 rounded-[10px]">
+                <div className="flex items-center gap-2 rounded-[10px] p-2 text-white/60 duration-200 hover:bg-white/5">
                   <Bot size={16} />
                   <p className="text-sm">Notion AI</p>
                 </div>
-                <div className="flex gap-2 items-center text-white/60 p-2 hover:bg-white/5 duration-200 rounded-[10px]">
+                <div className="flex items-center gap-2 rounded-[10px] p-2 text-white/60 duration-200 hover:bg-white/5">
                   <Shapes size={16} />
                   <p className="text-sm">Templates</p>
                 </div>
                 <Link
                   href="/"
-                  className="flex gap-2 items-center text-white/60 p-2 hover:bg-white/5 duration-200 rounded-[10px]"
+                  className="flex items-center gap-2 rounded-[10px] p-2 text-white/60 duration-200 hover:bg-white/5"
                 >
                   <HomeIcon size={16} />
                   <p className="text-sm">Home</p>
                 </Link>
-                <div className="flex gap-2 items-center text-white/60 p-2 hover:bg-white/5 duration-200 rounded-[10px]">
+                <div className="flex items-center gap-2 rounded-[10px] p-2 text-white/60 duration-200 hover:bg-white/5">
                   <InboxIcon size={16} />
                   <p className="text-sm">Inbox</p>
                 </div>
               </div>
             </header>
             <ScrollArea className="grow">
-              <main className="flex flex-col grow gap-y-0.5 m-2">
+              <main className="m-2 flex grow flex-col gap-y-0.5">
                 <CollapsibleLinks />
-                <div className="flex gap-2 items-center text-white/40 p-2 hover:bg-white/5 duration-200 rounded-[10px] mt-4">
+                <div className="mt-4 flex items-center gap-2 rounded-[10px] p-2 text-white/40 duration-200 hover:bg-white/5">
                   <Calendar size={16} />
                   <p className="text-sm">Calendar</p>
                   <ArrowUpRight size={16} />
                 </div>
-                <div className="flex gap-2 items-center text-white/40 p-2 hover:bg-white/5 duration-200 rounded-[10px]">
+                <div className="flex items-center gap-2 rounded-[10px] p-2 text-white/40 duration-200 hover:bg-white/5">
                   <Settings size={16} />
                   <p className="text-sm">Settings</p>
                 </div>
-                <div className="flex gap-2 items-center text-white/40 p-2 hover:bg-white/5 duration-200 rounded-[10px]">
+                <div className="flex items-center gap-2 rounded-[10px] p-2 text-white/40 duration-200 hover:bg-white/5">
                   <Shapes size={16} />
                   <p className="text-sm">Templates</p>
                 </div>
-                <div className="flex gap-2 items-center text-white/40 p-2 hover:bg-white/5 duration-200 rounded-[10px]">
+                <div className="flex items-center gap-2 rounded-[10px] p-2 text-white/40 duration-200 hover:bg-white/5">
                   <Trash size={16} />
                   <p className="text-sm">Trash</p>
                 </div>
-                <div className="flex gap-2 items-center text-white/40 p-2 hover:bg-white/5 duration-200 rounded-[10px]">
+                <div className="flex items-center gap-2 rounded-[10px] p-2 text-white/40 duration-200 hover:bg-white/5">
                   <HelpCircle size={16} />
                   <p className="text-sm">Help</p>
                 </div>
               </main>
             </ScrollArea>
-            <footer className="flex m-2 items-center gap-2 text-sm text-white/40 p-2 hover:bg-white/5 duration-200 rounded-[10px]">
+            <footer className="m-2 flex items-center gap-2 rounded-[10px] p-2 text-sm text-white/40 duration-200 hover:bg-white/5">
               <UserRoundPlus size={16} />
               <p>Invite members</p>
             </footer>

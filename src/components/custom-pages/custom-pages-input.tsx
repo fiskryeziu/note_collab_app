@@ -5,12 +5,12 @@ import { Image as Img, Smile } from "lucide-react";
 import React, { useState } from "react";
 import ScrollWrapper from "@/components/scroll-wrapper";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import Editor from "../editor";
 import EmojiPicker from "../emoji-picker";
 import { TControl, TEmoji } from "../../../types";
 import Image from "next/image";
 import { ChangeCover } from "../change-cover-dialog";
 import { PartialBlock } from "@blocknote/core";
+import { Editor } from "../dynamic-editor";
 
 // TODO: combine emojipicker with shadcn comp, add remove functionality
 // for cover img also on click of image add a tooltip for remove and add a new one
