@@ -3,8 +3,6 @@
 import { PartialBlock } from "@blocknote/core";
 import pool from "./db";
 import { v4 as uuidv4 } from "uuid";
-import { revalidatePath } from "next/cache";
-import { TNavlinks } from "../../types";
 
 export async function getPages() {
   try {
@@ -18,11 +16,13 @@ export async function getPages() {
 }
 export async function getContentByPagesId(id: string) {
   try {
-    // sql call here
     const data = await pool.query(
       `SELECT document FROM notes WHERE page_id='${id}'`,
     );
 
+    // TODO: add default document : [] in db for every page that doesn't have default doc.
+    // change condition below also..
+    console.log(data.rowCount, data.rows);
     return data.rowCount === 0 ? data.rows : data.rows[0].document;
   } catch (error) {
     console.error("Error fetching data", error);
@@ -36,9 +36,9 @@ export async function saveContentToServer(
 ) {
   try {
     console.log("Saving to database...");
-    // await pool.query(
-    //   `UPDATE notes SET document = '${JSON.stringify(content)}' WHERE page_id = '${pageId}'`,
-    // );
+    await pool.query(
+      `UPDATE notes SET document = '${JSON.stringify(content)}' WHERE page_id = '${pageId}'`,
+    );
   } catch (error) {
     console.error("Error saving content to server:", error);
   }
@@ -58,8 +58,10 @@ export async function createPage(): Promise<
     await pool.query(
       `INSERT INTO pages (id, slug, title, user_id) VALUES ('${id}','${slug}','${title}','${userId}')`,
     );
-    // WARNING: when creating page create also empty notes for that pageId
-    revalidatePath("/");
+    await pool.query(
+      `INSERT INTO notes (id, page_id,document) VALUES ('${uuidv4()}','${id}' , '[]'::jsonb)`,
+    );
+
     return { success: true, id, slug, title };
   } catch (error) {
     console.error("Error creating page", error);
