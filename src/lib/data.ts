@@ -19,11 +19,7 @@ export async function getContentByPagesId(id: string) {
     const data = await pool.query(
       `SELECT document FROM notes WHERE page_id='${id}'`,
     );
-
-    // TODO: add default document : [] in db for every page that doesn't have default doc.
-    // change condition below also..
-    console.log(data.rowCount, data.rows);
-    return data.rowCount === 0 ? data.rows : data.rows[0].document;
+    return data.rows[0].document;
   } catch (error) {
     console.error("Error fetching data", error);
     throw error;
@@ -59,7 +55,8 @@ export async function createPage(): Promise<
       `INSERT INTO pages (id, slug, title, user_id) VALUES ('${id}','${slug}','${title}','${userId}')`,
     );
     await pool.query(
-      `INSERT INTO notes (id, page_id,document) VALUES ('${uuidv4()}','${id}' , '[]'::jsonb)`,
+      `INSERT INTO notes (id, page_id,document) VALUES ($1,$2, $3)`,
+      [uuidv4(), id, JSON.stringify([])],
     );
 
     return { success: true, id, slug, title };
