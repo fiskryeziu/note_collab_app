@@ -7,14 +7,7 @@ import { PartialBlock } from "@blocknote/core";
 import { useCallback } from "react";
 import { useParams } from "next/navigation";
 import { saveContentToServer } from "@/lib/data";
-
-const debounce = (fn: (...args: any[]) => void, delay: number) => {
-  let timeoutId: NodeJS.Timeout | null = null;
-  return (...args: any[]) => {
-    if (timeoutId) clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn(...args), delay);
-  };
-};
+import { debounce } from "@/lib/utils";
 
 export default function Editor({
   initialContent,
@@ -28,18 +21,16 @@ export default function Editor({
     initialContent: init,
   });
 
-  const handleChange = useCallback(async () => {
+  const handleChange = async () => {
     try {
       const content = editor.document;
       saveContentToServer(content, pageId);
     } catch (error) {
       console.error("Error handling change:", error);
     }
-  }, [editor]);
+  };
 
-  const debouncedHandleChange = useCallback(debounce(handleChange, 500), [
-    handleChange,
-  ]);
+  const debouncedHandleChange = debounce(handleChange, 500);
 
   return <BlockNoteView editor={editor} onChange={debouncedHandleChange} />;
 }

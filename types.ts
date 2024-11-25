@@ -8,12 +8,15 @@ export type TContext = {
   setPages: React.Dispatch<React.SetStateAction<TNavlinks[]>>;
   loading: boolean;
   setLoading?: (value: boolean) => void;
+  getPageTitle: (id: string) => string;
 };
 
 export type TNavlinks = {
   id: string;
   slug: string;
   title: string;
+  icon: string;
+  cover: string;
 };
 
 export type TEmoji<T> = {
@@ -37,5 +40,5 @@ export type EmojiCompProps = {
 export type TControl = {
   title: string;
   img: string;
-  comment: string;
+  icon: string;
 };

@@ -17,9 +17,18 @@ export const ContextProvider = ({
   const [pages, setPages] = useState<TNavlinks[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const getPageTitle = (id: string) => {
+    const title = pages.find((page) => page.id === id)?.title || "";
+    return title;
+  };
+
   useEffect(() => {
     fetchPages();
   }, []);
+
+  // TODO: - we need pages, setPages, when we change the pagetitle on the topbar, custompage, icons(emoji).
+  //       - the changes of those the db will get updated.
+  //       - use debounce
 
   async function fetchPages() {
     setLoading(true);
@@ -42,6 +51,7 @@ export const ContextProvider = ({
         loading,
         pages,
         setPages,
+        getPageTitle,
       }}
     >
       {children}

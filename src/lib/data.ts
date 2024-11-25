@@ -65,3 +65,16 @@ export async function createPage(): Promise<
     return { success: false, error: "Failed to create page" };
   }
 }
+
+export async function updatePageTitle(pageId: string, newTitle) {
+  try {
+    const title = await pool.query(
+      `SELECT title FROM pages WHERE id=${pageId}`,
+    );
+    //TODO: UPDATE pages SET title = newTitle WHERE id = pageId
+
+    console.log(title);
+  } catch (error) {
+    console.log("Error updating the title", error);
+  }
+}

@@ -32,7 +32,13 @@ export function CollapsibleLinks() {
         // NOTE: add type for prev
         setPages((prev) => [
           ...prev,
-          { id: result.id, title: "New page", slug: result.slug },
+          {
+            id: result.id,
+            title: "New page",
+            slug: result.slug,
+            cover: "",
+            icon: "",
+          },
         ]);
         router.push(`/${result.id}`);
       } else {

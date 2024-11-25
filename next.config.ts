@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: false,
   experimental: {
     webpackMemoryOptimizations: true,
+    reactCompiler: true,
   },
 };
 

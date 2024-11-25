@@ -14,9 +14,9 @@ async function seed() {
 
     for (const page of pages) {
       await pool.query(
-        `INSERT INTO pages (id, title,cover, slug, user_id) 
-         VALUES ($1, $2, $3, $4, $5)`,
-        [page.id, page.title, page.cover, page.slug, page.userId],
+        `INSERT INTO pages (id, title,cover, icon, slug, user_id) 
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [page.id, page.title, page.cover, page.icon, page.slug, page.userId],
       );
       console.log(`Inserted page: ${page.title}`);
     }

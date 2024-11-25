@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import { PageTitlePopover } from "./page-title-popover";
 export const Topbar = ({ pageName }: { pageName: string }) => {
   const context = use<TContext | null>(AppContext);
   const pathname = usePathname();
@@ -23,7 +24,7 @@ export const Topbar = ({ pageName }: { pageName: string }) => {
   const { show, setShow, toggle, toggleMenu } = context;
 
   return (
-    <main className="flex items-center gap-2 p-4">
+    <main className="flex items-center gap-2 px-4 h-[44px]">
       {toggleMenu &&
         (toggleMenu && show ? (
           <ChevronsRight
@@ -34,11 +35,8 @@ export const Topbar = ({ pageName }: { pageName: string }) => {
         ) : (
           <Menu onMouseEnter={() => setShow(true)} className="z-50" />
         ))}
-      <p className="text-sm text-white/80">
-        {pageName && pageName.length > 40
-          ? pageName.slice(0, 40) + "..."
-          : pageName}
-      </p>
+
+      <PageTitlePopover name={pageName} />
       <div className="ml-auto flex gap-4">
         {isHomePage ? (
           <Ellipsis size={20} className="text-white/80" />
