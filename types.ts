@@ -35,6 +35,7 @@ export type EmojiCompProps = {
   show: boolean;
   value?: string;
   add: (value: TEmoji<string>) => void;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type TControl = {

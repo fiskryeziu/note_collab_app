@@ -22,7 +22,6 @@ export default function CustomPagesInput({
 }: {
   initialContent: PartialBlock[];
 }) {
-  const [pageName] = useState<string>("New page");
   const [toggleControl, setToggleControl] = useState(false);
 
   // TODO: get from db the initial data
@@ -69,13 +68,18 @@ export default function CustomPagesInput({
 
   return (
     <div className="flex grow flex-col overflow-hidden">
-      <Topbar pageName={pageName} />
+      <Topbar />
 
       <ScrollWrapper>
         <ScrollArea className="h-full">
           <div className="mx-auto flex w-full">
             {controlData.img && (
-              <div className="group relative mt-[44px] block h-20 w-full">
+              <div
+                className={clsx(
+                  "group relative mt-[44px] block h-20 w-full",
+                  controlData.icon ? "mb-0" : "mb-20",
+                )}
+              >
                 <Image
                   alt={controlData.title}
                   src={controlData.img}
@@ -91,40 +95,44 @@ export default function CustomPagesInput({
               </div>
             )}
           </div>
-          <main
-            className={clsx(
-              "mx-auto flex w-3/4 flex-col",
-              !controlData.icon && controlData.icon && "mt-20",
-            )}
-          >
+          <main className={clsx("mx-auto flex w-3/4 flex-col")}>
             <div className="z-10">
               {controlData.icon && (
                 <div
-                  className="ml-12 mt-10 w-fit cursor-pointer hover:bg-white/5"
+                  className="ml-12 mt-10 w-fit cursor-pointer hover:bg-white/5 relative"
                   onClick={togglePicker}
                 >
                   <p className="text-7xl">{controlData.icon}</p>
-                  <EmojiPicker show={showPicker} add={addEmoji} />
+                  <EmojiPicker
+                    show={showPicker}
+                    add={addEmoji}
+                    setShow={setShowPicker}
+                  />
                 </div>
               )}
             </div>
             <div
               className={clsx(
-                "flex items-center gap-5 pt-20 transition-opacity duration-200 ml-12",
+                "flex items-center gap-5 pt-20 transition-opacity duration-200 ml-12 relative",
                 toggleControl ? "opacity-100" : "opacity-0",
                 hasControl && "pt-5",
               )}
               onMouseEnter={() => setToggleControl(true)}
-              onMouseLeave={() => setToggleControl(false)}
+              onMouseLeave={() => {
+                setToggleControl(false), setShowPicker(false);
+              }}
             >
               {!controlData.icon && (
                 <div
                   className="flex cursor-pointer items-center gap-2 rounded-[5px] p-1 hover:bg-white/10"
                   role="button"
-                  // onClick={() => setIsOpen(!isOpen)}
                   onClick={togglePicker}
                 >
-                  <EmojiPicker show={showPicker} add={addEmoji} />
+                  <EmojiPicker
+                    show={showPicker}
+                    add={addEmoji}
+                    setShow={setShowPicker}
+                  />
                   <Smile size={16} className="text-white/80" />
                   <p className="text-sm text-white/80">Add icon</p>
                 </div>

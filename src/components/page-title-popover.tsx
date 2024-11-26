@@ -12,7 +12,7 @@ import { AppContext } from "@/context";
 import { useParams } from "next/navigation";
 import { debounce } from "@/lib/utils";
 
-export function PageTitlePopover({ name }: { name: string }) {
+export function PageTitlePopover() {
   const context = use<TContext | null>(AppContext);
   const params = useParams<{ pageId: string }>();
 
