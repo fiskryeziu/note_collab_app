@@ -11,6 +11,7 @@ import { TContext } from "../../types";
 import { AppContext } from "@/context";
 import { useParams } from "next/navigation";
 import { debounce } from "@/lib/utils";
+import { updatePageTitle } from "@/lib/data";
 
 export function PageTitlePopover() {
   const context = use<TContext | null>(AppContext);
@@ -29,8 +30,8 @@ export function PageTitlePopover() {
         ? initialTitle.slice(0, 40) + "..."
         : initialTitle;
 
-  const saveToDatabase = debounce((newContent: string) => {
-    console.log("Saving to DB from top-bar:", newContent);
+  const saveToDatabase = debounce(async (newContent: string) => {
+    await updatePageTitle(params.pageId, newContent);
   }, 500);
   return (
     <Popover>

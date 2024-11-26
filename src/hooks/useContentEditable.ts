@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback, useRef, use } from "react";
 import { TContext } from "../../types";
 import { AppContext } from "@/context";
 import { debounce } from "@/lib/utils";
-import { clear } from "console";
 import { useParams } from "next/navigation";
+import { updatePageTitle } from "@/lib/data";
 
 export function useContentEditable(initialContent: string = "") {
   const [isEmpty, setIsEmpty] = useState(initialContent === "");
@@ -24,8 +24,8 @@ export function useContentEditable(initialContent: string = "") {
     setIsEmpty(initialContent === "");
   }, [initialContent]);
 
-  const saveToDatabase = debounce((newContent: string) => {
-    console.log("Saving to DB:", newContent);
+  const saveToDatabase = debounce(async (newContent: string) => {
+    await updatePageTitle(params.pageId, newContent);
   }, 500);
 
   const handleInput = useCallback(() => {
