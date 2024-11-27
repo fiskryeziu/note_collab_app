@@ -7,7 +7,7 @@ import ScrollWrapper from "@/components/scroll-wrapper";
 export default function Home() {
   return (
     <main className="flex grow flex-col overflow-hidden">
-      <Topbar pageName="" />
+      <Topbar />
       <ScrollWrapper>
         <ScrollArea className="h-full">
           <div className="mb-[2000px] mt-20 flex flex-col gap-10 px-20">

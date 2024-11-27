@@ -6,8 +6,9 @@ import { v4 as uuidv4 } from "uuid";
 
 export async function getPages() {
   try {
-    const data = await pool.query(`SELECT * FROM pages`);
-
+    const data = await pool.query(
+      `SELECT * FROM pages ORDER BY created_at ASC`,
+    );
     return data.rows;
   } catch (error) {
     console.error("Error fetching data", error);
@@ -56,7 +57,7 @@ export async function createPage(): Promise<
       `INSERT INTO pages (id, slug, title, user_id) VALUES ('${id}','${slug}','${title}','${userId}')`,
     );
     await pool.query(
-      `INSERT INTO notes (id, page_id,document) VALUES ($1,$2, $3)`,
+      `INSERT INTO notes (id, page_id,document) VALUES ($1,$2,$3)`,
       [uuidv4(), id, JSON.stringify([])],
     );
 
