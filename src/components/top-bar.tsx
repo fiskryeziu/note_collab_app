@@ -1,7 +1,7 @@
 "use client";
 import { AppContext } from "@/context";
 import React, { use } from "react";
-import { TContext } from "../../types";
+import { TContext, TTopBarProps } from "../../types";
 import {
   ChevronsRight,
   Clock9,
@@ -13,7 +13,7 @@ import {
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { PageTitlePopover } from "./page-title-popover";
-export const Topbar = () => {
+export const Topbar = ({ controlData, setControlData }: TTopBarProps) => {
   const context = use<TContext | null>(AppContext);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
@@ -36,7 +36,12 @@ export const Topbar = () => {
           <Menu onMouseEnter={() => setShow(true)} className="z-50" />
         ))}
 
-      {!isHomePage && <PageTitlePopover />}
+      {!isHomePage && (
+        <PageTitlePopover
+          controlData={controlData}
+          setControlData={setControlData}
+        />
+      )}
       <div className="ml-auto flex gap-4">
         {isHomePage ? (
           <Ellipsis size={20} className="text-white/80" />

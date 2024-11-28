@@ -28,8 +28,9 @@ export function EditableHeading({
 
   const { contentRef, isEmpty, handleInput, handleKeyDown } =
     useContentEditable(
-      (initialTitle === "New page" ? undefined : initialTitle) ??
-        initialContent,
+      initialTitle.title === "New page"
+        ? undefined
+        : (initialTitle.title ?? initialContent),
     );
 
   return (

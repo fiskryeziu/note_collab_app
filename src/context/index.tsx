@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
-import { TContext, TNavlinks } from "../../types";
+import { TContext, TNavlinks, UpdateStateFn } from "../../types";
 import { getPages } from "@/lib/data";
 
 export const AppContext = createContext<TContext | null>(null);
@@ -17,18 +17,28 @@ export const ContextProvider = ({
   const [pages, setPages] = useState<TNavlinks[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const getPageTitle = (id: string) => {
-    const title = pages.find((page) => page.id === id)?.title || "";
-    return title;
-  };
-
   useEffect(() => {
     fetchPages();
   }, []);
 
-  // TODO: - we need pages, setPages, when we change the pagetitle on the topbar, custompage, icons(emoji).
-  //       - the changes of those the db will get updated.
-  //       - use debounce
+  const getPageTitle = (id: string) => {
+    const page = pages.find((p) => p.id === id);
+
+    const result = {
+      cover: page?.cover ?? "",
+      icon: page?.icon ?? "",
+      title: page?.title ?? "",
+    };
+    return result;
+  };
+
+  const updateState: UpdateStateFn<TNavlinks> = (setState, id, prop, value) => {
+    setState((prevState) =>
+      prevState.map((item) =>
+        item.id === id ? { ...item, [prop]: value } : item,
+      ),
+    );
+  };
 
   async function fetchPages() {
     setLoading(true);
@@ -52,6 +62,7 @@ export const ContextProvider = ({
         pages,
         setPages,
         getPageTitle,
+        updateState,
       }}
     >
       {children}

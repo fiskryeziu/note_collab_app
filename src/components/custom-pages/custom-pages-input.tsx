@@ -2,78 +2,79 @@
 import clsx from "clsx";
 import { Topbar } from "@/components/top-bar";
 import { Image as Img, Smile } from "lucide-react";
-import React, { useCallback, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import ScrollWrapper from "@/components/scroll-wrapper";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import EmojiPicker from "../emoji-picker";
-import { TControl, TEmoji } from "../../../types";
+import { TContext, TControl, TEmoji, TNavlinks } from "../../../types";
 import Image from "next/image";
 import { ChangeCover } from "../change-cover-dialog";
 import { PartialBlock } from "@blocknote/core";
 import { Editor } from "../dynamic-editor";
 import { EditableHeading } from "../editable-heading";
+import { updatePageCover, updatePageIcon } from "@/lib/data";
+import { useParams } from "next/navigation";
+import { AppContext } from "@/context";
+import { dir } from "console";
 
-// TODO:  - add h1 for pagetitle contenteditable
-//        - top-bar pagetitle onclick show popover
-//        - action change pagetitle with debounce
 export const IMAGES = ["/1.webp", "/2.webp", "/3.webp"];
 export default function CustomPagesInput({
   initialContent,
 }: {
   initialContent: PartialBlock[];
 }) {
+  const context = use<TContext | null>(AppContext);
+
+  if (!context) {
+    throw new Error("useContext must be used within an AppProvider");
+  }
+  const { pageId } = useParams<{ pageId: string }>();
+  const { setPages, updateState, getPageTitle } = context;
   const [toggleControl, setToggleControl] = useState(false);
 
-  // TODO: get from db the initial data
-  const [controlData, setControlData] = useState<TControl>({
-    icon: "",
+  const [controlData, setControlData] = useState({
     title: "",
-    img: "",
+    icon: "",
+    cover: "",
   });
-  const randomImage = IMAGES[Math.floor(Math.random() * IMAGES.length)];
-
   //emoji
   const [showPicker, setShowPicker] = useState(false);
+  const hasControl = controlData.icon || controlData.cover;
 
-  const hasControl = controlData.icon || controlData.img;
+  useEffect(() => {
+    if (pageId) {
+      const initialData = getPageTitle(pageId);
+      setControlData(initialData);
+    }
+  }, [pageId, getPageTitle]);
+
+  const imageClickHandler = async () => {
+    const randomImage = IMAGES[Math.floor(Math.random() * IMAGES.length)];
+    setControlData((prev) => ({
+      ...prev,
+      img: randomImage,
+    }));
+
+    await updatePageCover(pageId, randomImage);
+  };
 
   const togglePicker = () => {
     setShowPicker(!showPicker);
   };
-  const addEmoji = (emoji: TEmoji<string>) => {
-    setControlData((prev) => ({
-      ...prev,
-      icon: emoji.native,
-    }));
+  const addEmoji = async (emoji: TEmoji<string>) => {
     setShowPicker(false);
+    await updatePageIcon(pageId, emoji.native);
+    updateState(setPages, pageId, "icon", emoji.native);
   };
-  // const addBg = (img: string) => {
-  //   setControlData((prev) => ({
-  //     ...prev,
-  //     img,
-  //   }));
-  // };
-
-  // NOTE: this will get used in custom-pages-input & top-bar
-  // const handleChange = async () => {
-  //   try {
-  //     // update server action call
-  //   } catch (error) {
-  //     console.error("Error handling change:", error);
-  //   }
-  // };
-  // const debouncedHandleChange = useCallback(debounce(handleChange, 500), [
-  //   handleChange,
-  // ]);
 
   return (
     <div className="flex grow flex-col overflow-hidden">
-      <Topbar />
+      <Topbar controlData={controlData} setControlData={setControlData} />
 
       <ScrollWrapper>
         <ScrollArea className="h-full">
           <div className="mx-auto flex w-full">
-            {controlData.img && (
+            {controlData.cover && (
               <div
                 className={clsx(
                   "group relative mt-[44px] block h-20 w-full",
@@ -82,14 +83,14 @@ export default function CustomPagesInput({
               >
                 <Image
                   alt={controlData.title}
-                  src={controlData.img}
+                  src={controlData.cover}
                   width={1000}
                   height={800}
                   className="h-40 w-full object-cover"
                 />
                 <div className="absolute bottom-1/2 left-3/4 flex cursor-pointer items-center justify-center rounded-[3px] bg-sidebar p-1 text-xs text-white/40 opacity-0 group-hover:opacity-100">
                   <div className="relative">
-                    <ChangeCover setControlDataAction={setControlData} />
+                    <ChangeCover setControlData={setControlData} />
                   </div>
                 </div>
               </div>
@@ -100,7 +101,7 @@ export default function CustomPagesInput({
               {controlData.icon && (
                 <div
                   className="ml-12 mt-10 w-fit cursor-pointer hover:bg-white/5 relative"
-                  onClick={togglePicker}
+                  onClick={() => setShowPicker(true)}
                 >
                   <p className="text-7xl">{controlData.icon}</p>
                   <EmojiPicker
@@ -137,16 +138,11 @@ export default function CustomPagesInput({
                   <p className="text-sm text-white/80">Add icon</p>
                 </div>
               )}
-              {!controlData.img && (
+              {!controlData.cover && (
                 <div
                   className="flex cursor-pointer items-center gap-2 rounded-[5px] p-1 hover:bg-white/10"
                   role="button"
-                  onClick={() =>
-                    setControlData((prev) => ({
-                      ...prev,
-                      img: randomImage,
-                    }))
-                  }
+                  onClick={imageClickHandler}
                 >
                   <Img size={16} className="text-white/80" />
                   <p className="text-sm text-white/80">Add cover</p>

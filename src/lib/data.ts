@@ -77,3 +77,21 @@ export async function updatePageTitle(pageId: string, newTitle: string) {
     console.log("Error updating the title", error);
   }
 }
+export async function updatePageIcon(pageId: string, newIcon: string) {
+  try {
+    await pool.query(
+      `UPDATE pages SET icon = '${newIcon}' WHERE id = '${pageId}'`,
+    );
+  } catch (error) {
+    console.log("Error updating the title", error);
+  }
+}
+export async function updatePageCover(pageId: string, newCover: string) {
+  try {
+    await pool.query(
+      `UPDATE pages SET cover = '${newCover}' WHERE id = '${pageId}'`,
+    );
+  } catch (error) {
+    console.log("Error updating the title", error);
+  }
+}

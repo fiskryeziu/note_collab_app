@@ -1,8 +1,6 @@
-"use client";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -12,16 +10,20 @@ import { IMAGES } from "./custom-pages/custom-pages-input";
 import Image from "next/image";
 import { TControl } from "../../types";
 import { Button } from "./ui/button";
+import { useParams } from "next/navigation";
+import { updatePageCover } from "@/lib/data";
 
 type controlState = React.Dispatch<React.SetStateAction<TControl>>;
 export function ChangeCover({
-  setControlDataAction,
+  setControlData,
 }: {
-  setControlDataAction: controlState;
+  setControlData: controlState;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open] = useState(false);
   const pRef = useRef<HTMLParagraphElement>(null);
   const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
+
+  const params = useParams<{ pageId: string }>();
 
   useEffect(() => {
     if (pRef.current) {
@@ -29,6 +31,15 @@ export function ChangeCover({
       setButtonPosition({ top: rect.bottom, left: rect.left });
     }
   }, [open]);
+
+  const changeImage = async (cover: string) => {
+    setControlData((prev) => ({ ...prev, cover }));
+    await updatePageCover(params.pageId, cover);
+  };
+  const removeImage = async () => {
+    setControlData((prev) => ({ ...prev, cover: "" }));
+    await updatePageCover(params.pageId, "");
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -45,23 +56,14 @@ export function ChangeCover({
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
             <div>Images</div>
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() =>
-                setControlDataAction((prev) => ({ ...prev, img: "" }))
-              }
-            >
+            <Button size="sm" variant="ghost" onClick={removeImage}>
               remove
             </Button>
           </DialogTitle>
         </DialogHeader>
         <div className="grid grid-cols-4 gap-2">
           {IMAGES.map((img, idx) => (
-            <div
-              key={idx}
-              onClick={() => setControlDataAction((prev) => ({ ...prev, img }))}
-            >
+            <div key={idx} onClick={() => changeImage(img)}>
               <Image
                 src={img}
                 priority
