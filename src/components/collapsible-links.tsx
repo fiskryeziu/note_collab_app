@@ -1,7 +1,5 @@
 "use client";
-
 import { useContext, useState } from "react";
-
 import {
   Collapsible,
   CollapsibleContent,
@@ -21,7 +19,7 @@ export function CollapsibleLinks() {
   if (!context) {
     throw new Error("useContext must be used within an AppProvider");
   }
-  const { loading, pages, setPages } = context;
+  const { setPages } = context;
 
   const handleCreatePage = async () => {
     if (isCreating) return;

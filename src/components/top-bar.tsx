@@ -13,6 +13,7 @@ import {
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { PageTitlePopover } from "./page-title-popover";
+
 export const Topbar = ({ controlData, setControlData }: TTopBarProps) => {
   const context = use<TContext | null>(AppContext);
   const pathname = usePathname();

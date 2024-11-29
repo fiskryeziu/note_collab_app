@@ -59,6 +59,6 @@ export type TControl = {
 };
 
 export type TTopBarProps = {
-  controlData: TControl;
-  setControlData: React.Dispatch<React.SetStateAction<TControl>>;
+  controlData?: TControl;
+  setControlData?: React.Dispatch<React.SetStateAction<TControl>>;
 };

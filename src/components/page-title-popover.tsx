@@ -40,7 +40,7 @@ export function PageTitlePopover({
   }, 500);
 
   const addEmoji = (emoji: TEmoji<string>) => {
-    setControlData((prev) => ({
+    setControlData!((prev) => ({
       ...prev,
       icon: emoji.native,
     }));
@@ -52,7 +52,7 @@ export function PageTitlePopover({
       <PopoverTrigger asChild className="z-50 relative">
         <Button variant="ghost" className="py-3 px-2 h-0 rounded-[10px]">
           <p className="text-sm text-white/80">
-            {controlData.icon} {title}
+            {controlData?.icon} {title}
           </p>
         </Button>
       </PopoverTrigger>
@@ -65,10 +65,10 @@ export function PageTitlePopover({
               setShow(true);
             }}
           >
-            {controlData.icon === "" ? (
+            {controlData?.icon === "" ? (
               <File size={14} />
             ) : (
-              <p className="text-xs">{controlData.icon}</p>
+              <p className="text-xs">{controlData?.icon}</p>
             )}
           </div>
           <EmojiPicker show={show} add={addEmoji} setShow={setShow} />

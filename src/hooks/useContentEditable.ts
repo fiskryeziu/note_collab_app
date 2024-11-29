@@ -15,7 +15,7 @@ export function useContentEditable(initialContent: string = "") {
   if (!context) {
     throw new Error("useContext must be used within an AppProvider");
   }
-  const { pages, setPages } = context;
+  const { setPages } = context;
 
   useEffect(() => {
     if (contentRef.current) {
@@ -28,7 +28,7 @@ export function useContentEditable(initialContent: string = "") {
     await updatePageTitle(params.pageId, newContent);
   }, 500);
 
-  const handleInput = useCallback(() => {
+  const handleInput = () => {
     const newContent = contentRef.current?.textContent || "";
     setIsEmpty(newContent === "");
 
@@ -38,7 +38,7 @@ export function useContentEditable(initialContent: string = "") {
     }
     saveToDatabase(newContent);
     updatePageTitleById(params.pageId, newContent);
-  }, []);
+  };
 
   const updatePageTitleById = (id: string, newTitle: string) => {
     setPages((prevPages) =>

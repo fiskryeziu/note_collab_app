@@ -4,7 +4,6 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { PartialBlock } from "@blocknote/core";
-import { useCallback } from "react";
 import { useParams } from "next/navigation";
 import { saveContentToServer } from "@/lib/data";
 import { debounce } from "@/lib/utils";

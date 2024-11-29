@@ -3,7 +3,7 @@ import { useContentEditable } from "@/hooks/useContentEditable";
 import React, { use } from "react";
 import { TContext } from "../../types";
 import { AppContext } from "@/context";
-import { useParams, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 
 interface HeadingProps {
   placeholder?: string;

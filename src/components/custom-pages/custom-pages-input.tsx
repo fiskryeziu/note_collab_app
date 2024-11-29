@@ -6,7 +6,7 @@ import React, { use, useEffect, useState } from "react";
 import ScrollWrapper from "@/components/scroll-wrapper";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import EmojiPicker from "../emoji-picker";
-import { TContext, TControl, TEmoji, TNavlinks } from "../../../types";
+import { TContext, TEmoji } from "../../../types";
 import Image from "next/image";
 import { ChangeCover } from "../change-cover-dialog";
 import { PartialBlock } from "@blocknote/core";
@@ -15,7 +15,6 @@ import { EditableHeading } from "../editable-heading";
 import { updatePageCover, updatePageIcon } from "@/lib/data";
 import { useParams } from "next/navigation";
 import { AppContext } from "@/context";
-import { dir } from "console";
 
 export const IMAGES = ["/1.webp", "/2.webp", "/3.webp"];
 export default function CustomPagesInput({
@@ -120,7 +119,8 @@ export default function CustomPagesInput({
               )}
               onMouseEnter={() => setToggleControl(true)}
               onMouseLeave={() => {
-                setToggleControl(false), setShowPicker(false);
+                setToggleControl(false);
+                setShowPicker(false);
               }}
             >
               {!controlData.icon && (
@@ -150,7 +150,6 @@ export default function CustomPagesInput({
               )}
             </div>
             <div className="ml-14 my-4">
-              {/* NOTE: - use initialcontent when fetch from db */}
               <EditableHeading placeholder="New Page" />
             </div>
             <div>
