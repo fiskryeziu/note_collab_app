@@ -10,7 +10,7 @@ import { TContext, TEmoji, TTopBarProps } from "../../types";
 import { AppContext } from "@/context";
 import { useParams } from "next/navigation";
 import { debounce } from "@/lib/utils";
-import { updatePageTitle } from "@/lib/data";
+import { updatePageIcon, updatePageTitle } from "@/lib/data";
 import EmojiPicker from "./emoji-picker";
 import { File } from "lucide-react";
 
@@ -46,6 +46,7 @@ export function PageTitlePopover({
     }));
     setShow(false);
     updateState(setPages, params.pageId, "icon", emoji.native);
+    updatePageIcon(params.pageId, emoji.native);
   };
   return (
     <Popover>

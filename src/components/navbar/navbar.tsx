@@ -24,10 +24,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 
 export const Navbar = () => {
-  // dynamic pages will call the function from db
-  // we'll use either prisma or drizzle , react query
-  // if no text in it & if you change route dont save
-  // the pages will be cached but on delete | update the navbar will get revalidated
   const context = use<TContext | null>(AppContext);
   if (!context) {
     throw new Error("useContext must be used within an AppProvider");

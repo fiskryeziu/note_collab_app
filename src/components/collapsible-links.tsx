@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -10,6 +10,7 @@ import { Plus } from "lucide-react";
 import { createPage } from "@/lib/data";
 import { useRouter } from "next/navigation";
 import { AppContext } from "@/context";
+// TODO: - add localstorage isOpen for collapsibleLinks
 export function CollapsibleLinks() {
   const context = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,17 @@ export function CollapsibleLinks() {
     throw new Error("useContext must be used within an AppProvider");
   }
   const { setPages } = context;
+
+  useEffect(() => {
+    const storedIsOpen = localStorage.getItem("collapsibleIsOpen");
+    if (storedIsOpen !== null) {
+      setIsOpen(JSON.parse(storedIsOpen));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("collapsibleIsOpen", JSON.stringify(isOpen));
+  }, [isOpen]);
 
   const handleCreatePage = async () => {
     if (isCreating) return;

@@ -16,6 +16,8 @@ import { updatePageCover, updatePageIcon } from "@/lib/data";
 import { useParams } from "next/navigation";
 import { AppContext } from "@/context";
 
+// BUG: - when you open for the first time the emojipicker without any icon
+//  it doesn't navigate to different emojis
 export const IMAGES = ["/1.webp", "/2.webp", "/3.webp"];
 export default function CustomPagesInput({
   initialContent,
@@ -67,7 +69,7 @@ export default function CustomPagesInput({
   };
 
   return (
-    <div className="flex grow flex-col overflow-hidden">
+    <div className="flex grow flex-col overflow-hidden ">
       <Topbar controlData={controlData} setControlData={setControlData} />
 
       <ScrollWrapper>
@@ -103,51 +105,47 @@ export default function CustomPagesInput({
                   onClick={() => setShowPicker(true)}
                 >
                   <p className="text-7xl">{controlData.icon}</p>
-                  <EmojiPicker
-                    show={showPicker}
-                    add={addEmoji}
-                    setShow={setShowPicker}
-                  />
                 </div>
               )}
             </div>
-            <div
-              className={clsx(
-                "flex items-center gap-5 pt-20 transition-opacity duration-200 ml-12 relative",
-                toggleControl ? "opacity-100" : "opacity-0",
-                hasControl && "pt-5",
-              )}
-              onMouseEnter={() => setToggleControl(true)}
-              onMouseLeave={() => {
-                setToggleControl(false);
-                setShowPicker(false);
-              }}
-            >
-              {!controlData.icon && (
-                <div
-                  className="flex cursor-pointer items-center gap-2 rounded-[5px] p-1 hover:bg-white/10"
-                  role="button"
-                  onClick={togglePicker}
-                >
-                  <EmojiPicker
-                    show={showPicker}
-                    add={addEmoji}
-                    setShow={setShowPicker}
-                  />
-                  <Smile size={16} className="text-white/80" />
-                  <p className="text-sm text-white/80">Add icon</p>
-                </div>
-              )}
-              {!controlData.cover && (
-                <div
-                  className="flex cursor-pointer items-center gap-2 rounded-[5px] p-1 hover:bg-white/10"
-                  role="button"
-                  onClick={imageClickHandler}
-                >
-                  <Img size={16} className="text-white/80" />
-                  <p className="text-sm text-white/80">Add cover</p>
-                </div>
-              )}
+            <div className="relative">
+              <div
+                className={clsx(
+                  "flex items-center gap-5 pt-20 transition-opacity duration-200 ml-12",
+                  toggleControl ? "opacity-100" : "opacity-0",
+                  hasControl && "pt-5",
+                )}
+                onMouseEnter={() => setToggleControl(true)}
+                onMouseLeave={() => {
+                  setToggleControl(false);
+                }}
+              >
+                {!controlData.icon && (
+                  <div
+                    className="flex cursor-pointer items-center gap-2 rounded-[5px] p-1 hover:bg-white/10"
+                    role="button"
+                    onClick={togglePicker}
+                  >
+                    <Smile size={16} className="text-white/80" />
+                    <p className="text-sm text-white/80 ">Add icon</p>
+                  </div>
+                )}
+                {!controlData.cover && (
+                  <div
+                    className="flex cursor-pointer items-center gap-2 rounded-[5px] p-1 hover:bg-white/10"
+                    role="button"
+                    onClick={imageClickHandler}
+                  >
+                    <Img size={16} className="text-white/80" />
+                    <p className="text-sm text-white/80">Add cover</p>
+                  </div>
+                )}
+              </div>
+              <EmojiPicker
+                show={showPicker}
+                add={addEmoji}
+                setShow={setShowPicker}
+              />
             </div>
             <div className="ml-14 my-4">
               <EditableHeading placeholder="New Page" />
