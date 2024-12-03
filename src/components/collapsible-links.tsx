@@ -10,8 +10,7 @@ import { Plus } from "lucide-react";
 import { createPage } from "@/lib/data";
 import { useRouter } from "next/navigation";
 import { AppContext } from "@/context";
-// TODO: - add localstorage isOpen for collapsibleLinks
-export function CollapsibleLinks() {
+export function CollapsibleLinks({ name }: { name: "private" | "favorite" }) {
   const context = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
@@ -23,15 +22,15 @@ export function CollapsibleLinks() {
   const { setPages } = context;
 
   useEffect(() => {
-    const storedIsOpen = localStorage.getItem("collapsibleIsOpen");
+    const storedIsOpen = localStorage.getItem(`collapsible-${name}`);
     if (storedIsOpen !== null) {
       setIsOpen(JSON.parse(storedIsOpen));
     }
-  }, []);
+  }, [name]);
 
   useEffect(() => {
-    localStorage.setItem("collapsibleIsOpen", JSON.stringify(isOpen));
-  }, [isOpen]);
+    localStorage.setItem(`collapsible-${name}`, JSON.stringify(isOpen));
+  }, [isOpen, name]);
 
   const handleCreatePage = async () => {
     if (isCreating) return;
@@ -39,7 +38,6 @@ export function CollapsibleLinks() {
     try {
       const result = await createPage();
       if (result.success) {
-        // NOTE: add type for prev
         setPages((prev) => [
           ...prev,
           {
@@ -48,6 +46,7 @@ export function CollapsibleLinks() {
             slug: result.slug,
             cover: "",
             icon: "",
+            is_favorite: false,
           },
         ]);
         router.push(`/${result.id}`);
@@ -73,21 +72,23 @@ export function CollapsibleLinks() {
             role="button"
             className="group flex justify-between rounded-[10px] p-2 text-xs duration-150 hover:bg-white/5"
           >
-            <p>Private</p>
-            <Plus
-              size={16}
-              className="text-white/40 opacity-0 transition-all duration-150 group-hover:opacity-100"
-              onClick={(e) => {
-                // NOTE: dont collaps links
-                e.stopPropagation();
-                handleCreatePage();
-              }}
-            />
+            <p className="capitalize text-white/60">{name}</p>
+            {name === "private" && (
+              <Plus
+                size={16}
+                className="text-white/40 opacity-0 transition-all duration-150 group-hover:opacity-100"
+                onClick={(e) => {
+                  // NOTE: dont collaps links
+                  e.stopPropagation();
+                  handleCreatePage();
+                }}
+              />
+            )}
           </div>
         </CollapsibleTrigger>
       </div>
       <CollapsibleContent className="space-y-0.5">
-        <NavbarLinks />
+        <NavbarLinks name={name} />
       </CollapsibleContent>
     </Collapsible>
   );

@@ -10,6 +10,7 @@ export type TContext = {
   setLoading?: (value: boolean) => void;
   getPageTitle: (id: string) => TPageProp;
   updateState: UpdateStateFn<TNavlinks>;
+  getGroupPages: (name: "private" | "favorite") => TNavlinks[];
 };
 
 export type TPageProp = {
@@ -31,6 +32,7 @@ export type TNavlinks = {
   title: string;
   icon: string;
   cover: string;
+  is_favorite: boolean;
 };
 
 export type TEmoji<T> = {

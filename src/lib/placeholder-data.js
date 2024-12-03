@@ -15,6 +15,7 @@ const pages = [
     icon: "",
     slug: "8f2bb7b0-0a1b-4ec8-a368-6d39efdef4ab",
     userId: "410544b2-4001-4271-9855-fec4b6a6442a",
+    isFavorite: false,
   },
   {
     id: "251231b9-a064-49a2-a50f-af04b6e6f375",
@@ -23,6 +24,7 @@ const pages = [
     icon: "",
     slug: "16ad2b0f-0ae2-4297-b27e-ca1ebc385cc3",
     userId: "410544b2-4001-4271-9855-fec4b6a6442a",
+    isFavorite: false,
   },
   {
     id: "165308bc-cc1b-417e-bc64-fd38766bf0de",
@@ -31,6 +33,7 @@ const pages = [
     icon: "",
     slug: "f3c97250-0846-495a-9b2b-98119173b497",
     userId: "410544b2-4001-4271-9855-fec4b6a6442a",
+    isFavorite: false,
   },
   {
     id: "9e6db916-eaed-4f76-9c1d-4eda7123052b",
@@ -39,6 +42,7 @@ const pages = [
     icon: "",
     slug: "768abd48-2249-4a26-8c1c-300cd326a207",
     userId: "410544b2-4001-4271-9855-fec4b6a6442a",
+    isFavorite: false,
   },
 ];
 

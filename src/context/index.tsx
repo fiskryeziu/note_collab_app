@@ -32,6 +32,13 @@ export const ContextProvider = ({
     return result;
   };
 
+  const getGroupPages = (name: "private" | "favorite") => {
+    if (name === "favorite") {
+      return pages.filter((p) => p.is_favorite === true);
+    }
+    return pages;
+  };
+
   const updateState: UpdateStateFn<TNavlinks> = (setState, id, prop, value) => {
     setState((prevState) =>
       prevState.map((item) =>
@@ -63,6 +70,7 @@ export const ContextProvider = ({
         setPages,
         getPageTitle,
         updateState,
+        getGroupPages,
       }}
     >
       {children}

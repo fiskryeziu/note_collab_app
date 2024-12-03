@@ -105,7 +105,8 @@ export const Navbar = () => {
             </header>
             <ScrollArea className="grow">
               <main className="m-2 flex grow flex-col gap-y-0.5">
-                <CollapsibleLinks />
+                <CollapsibleLinks name="favorite" />
+                <CollapsibleLinks name="private" />
                 <div className="mt-4 flex items-center gap-2 rounded-[10px] p-2 text-white/40 duration-200 hover:bg-white/5">
                   <Calendar size={16} />
                   <p className="text-sm">Calendar</p>

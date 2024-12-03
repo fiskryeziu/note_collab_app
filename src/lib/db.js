@@ -1,7 +1,6 @@
 const { Pool } = require("pg");
 
 require("dotenv").config({ path: ".env.local" }); // Explicitly load .env.local
-
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,

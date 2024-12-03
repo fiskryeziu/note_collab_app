@@ -5,18 +5,22 @@ import { FileText } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
 
-export default function NavbarLinks() {
+export default function NavbarLinks({
+  name,
+}: {
+  name: "private" | "favorite";
+}) {
   const context = use(AppContext);
 
   if (!context) {
     throw new Error("useContext must be used within an AppProvider");
   }
-  const { loading, pages } = context;
+  const { loading, getGroupPages } = context;
 
   return (
     <>
       {loading && <>loading...</>}
-      {pages.map((page) => (
+      {getGroupPages(name).map((page) => (
         <Link
           href={page.id}
           key={page.id}
