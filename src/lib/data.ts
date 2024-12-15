@@ -95,3 +95,11 @@ export async function updatePageCover(pageId: string, newCover: string) {
     console.log("Error updating the title", error);
   }
 }
+export async function deletePage(pageId: string) {
+  try {
+    await pool.query(`DELETE FROM pages WHERE id = '${pageId}'`);
+    return { success: true };
+  } catch (error) {
+    console.log("Error updating the title", error);
+  }
+}

@@ -2,7 +2,7 @@ import CustomPagesInput from "@/components/custom-pages/custom-pages-input";
 import { getContentByPagesId } from "@/lib/data";
 import { PartialBlock } from "@blocknote/core";
 
-// TODO: - add favorites page
+// TODO: x add favorites page
 //       - add search functionality
 //       - add custom block in blocknote
 export default async function Page({

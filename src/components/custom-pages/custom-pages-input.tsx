@@ -53,9 +53,8 @@ export default function CustomPagesInput({
     const randomImage = IMAGES[Math.floor(Math.random() * IMAGES.length)];
     setControlData((prev) => ({
       ...prev,
-      img: randomImage,
+      cover: randomImage,
     }));
-
     await updatePageCover(pageId, randomImage);
   };
 

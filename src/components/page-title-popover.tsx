@@ -82,10 +82,10 @@ export function PageTitlePopover({
                 prevPages.map((page) =>
                   page.id === params.pageId
                     ? {
-                        ...page,
-                        title:
-                          e.target.value === "" ? "New page" : e.target.value,
-                      }
+                      ...page,
+                      title:
+                        e.target.value === "" ? "New page" : e.target.value,
+                    }
                     : page,
                 ),
               );
