@@ -17,11 +17,6 @@ export default function NavbarLinks({
     throw new Error("useContext must be used within an AppProvider");
   }
   const { loading, getGroupPages } = context;
-
-  // TODO:  - add delete page functionality
-  //        - add icon which will open dropdownmenu.
-
-  //NOTE:  msg for gh: "fix: cover img, add: delete page functionality"
   return (
     <>
       {loading && <>loading...</>}
