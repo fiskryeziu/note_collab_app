@@ -55,7 +55,10 @@ export const DropdownMenuLinks = ({ pageId }: { pageId: string }) => {
         <DropdownMenuItem>Duplicate</DropdownMenuItem>
         <DropdownMenuItem>Rename</DropdownMenuItem>
         <DropdownMenuItem>Move to</DropdownMenuItem>
-        <DropdownMenuItem onClick={handleDelete}>
+        <DropdownMenuItem
+          onClick={handleDelete}
+          className="focus:bg-red-500 focus:duration-200"
+        >
           Move to Trash
         </DropdownMenuItem>
         <DropdownMenuItem>Open in new tab</DropdownMenuItem>

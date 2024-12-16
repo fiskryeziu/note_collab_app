@@ -40,7 +40,7 @@ export function RecentlyCarousel() {
       <CarouselContent>
         {Array.from({ length: 18 }).map((_, index) => (
           <CarouselItem key={index} className="basis-[144px]">
-            <div className="flex h-36 w-36 items-center justify-center border">
+            <div className="flex h-36 items-center justify-center border">
               {index}
             </div>
           </CarouselItem>
