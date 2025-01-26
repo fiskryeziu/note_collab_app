@@ -39,7 +39,7 @@ export function EditableHeading({
       contentEditable
       onInput={handleInput}
       onKeyDown={handleKeyDown}
-      className={`text-4xl font-bold outline-none ${
+      className={`text-4xl font-bold outline-hidden ${
         isEmpty ? "text-gray-400 before:content-[attr(data-placeholder)]" : ""
       } ${className}`}
       data-placeholder={placeholder}
