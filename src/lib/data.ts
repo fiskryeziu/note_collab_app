@@ -20,7 +20,6 @@ export async function getContentByPagesId(id: string) {
     const data = await pool.query(
       `SELECT document FROM notes WHERE page_id='${id}'`,
     );
-    // TODO: - return cover, title, and icons.(not for now)
     return data.rows[0].document;
   } catch (error) {
     console.error("Error fetching data", error);

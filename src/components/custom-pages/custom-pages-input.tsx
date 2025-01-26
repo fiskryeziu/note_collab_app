@@ -16,8 +16,6 @@ import { updatePageCover, updatePageIcon } from "@/lib/data";
 import { useParams } from "next/navigation";
 import { AppContext } from "@/context";
 
-// BUG: - when you open for the first time the emojipicker without any icon
-//  it doesn't navigate to different emojis
 export const IMAGES = ["/1.webp", "/2.webp", "/3.webp"];
 export default function CustomPagesInput({
   initialContent,
